@@ -3,6 +3,7 @@
  */
 package cn.yd.Hangzhou_01.model;
 
+import java.math.BigDecimal;
 import java.util.Date; //ctrl+t 查看父子类关系，一般首选父类或接口
 
 /**
@@ -23,13 +24,14 @@ public class Product {
 	//在model中采用引用类型，所以此处用Interger，不用 int
 	private Integer id;
 	private  String name;
-	private Double price;
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
+	private BigDecimal price;
+
 	private String pic;
 	private  String remark;
 	private Date date;

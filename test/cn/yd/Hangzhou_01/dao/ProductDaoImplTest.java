@@ -5,6 +5,7 @@ package cn.yd.Hangzhou_01.dao;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.AfterClass;
@@ -47,7 +48,7 @@ public class ProductDaoImplTest {
 	public void testSave() {
 		Product product=new Product();
 		product.setName("小红");
-		product.setPrice(1900.00);
+		product.setPrice(new BigDecimal(1200));
 		product.setRemark("小红真红红的");
 		daoimpl.save(product);
 	}
@@ -78,8 +79,8 @@ public class ProductDaoImplTest {
 //				System.out.println(product);
 	}
 	@Test
-	public void testqueryselect() {
-		List<Product> list = daoimpl.queryselect("小红");
+	public void testqueryselect() throws Exception {
+		List<Product> list = daoimpl.queryselect("");
 		for (Product product : list) {
 			System.out.println(product);
 		}

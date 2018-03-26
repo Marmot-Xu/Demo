@@ -37,10 +37,10 @@ public class ProductDaoImpl extends BaseDao<Product>{
 //		productDaoImpl.delete(4);
 //		product=productDaoImpl.select(5);
 //		System.out.println(product.toString());
-		List<Product> list = daoimpl.queryselect("");
-		for (Product product : list) {
-			System.out.println(product);
-		}
+//		List<Product> list = daoimpl.queryselect("");
+//		for (Product product : list) {
+//			System.out.println(product);
+//		}
 	}
 
 	
@@ -78,7 +78,7 @@ public class ProductDaoImpl extends BaseDao<Product>{
 				System.out.println(rSet.getString("name"));
 				product.setId(rSet.getInt("id"));
 				product.setName(rSet.getString("name"));
-				product.setPrice(rSet.getDouble("price"));
+				product.setPrice(rSet.getBigDecimal("price"));
 				product.setRemark(rSet.getString("remark"));
 			}			
 		} catch (SQLException e) {
@@ -90,10 +90,10 @@ public class ProductDaoImpl extends BaseDao<Product>{
 	}
 	
 
-	public List<Product> queryselect(String name){		
+	public List<Product> queryselect(String name) throws Exception{		
 		
 		String sql="select * from product where name like ?";
-		List<Product> list = super.querySelect(sql, new Object[]{"%"+name+"%"});
+		List<Product> list = super.querySelect(sql, new Object[]{"%"+name+"%"},Product.class);
 		return list;	
 	}
 

@@ -3,9 +3,11 @@
  */
 package cn.yd.Hangzhou_01.dao;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,12 +45,13 @@ public abstract class BaseDao<T> {
 	
 	
 	protected abstract T getRow(ResultSet rSet) throws SQLException;
-	protected List<T> querySelect(String sql,Object[] param){
+	protected List<T> querySelect(String sql,Object[] param,Class<T> class1) throws Exception{
 		List<T> tList = new ArrayList<T>();
-		T t = null;
+//		T t = null;
 		Connection connection=null;
 		PreparedStatement pre=null;
 		ResultSet rSet=null;
+		
 		//
 		try {
 			connection=JdbcUtil.getConnection();
@@ -56,10 +59,17 @@ public abstract class BaseDao<T> {
 			for (int i = 0; i < param.length; i++) {
 				pre.setObject(i+1, param[i]);
 			}
-			rSet = pre.executeQuery();			
-			if (rSet.next()) {
-				t=this.getRow(rSet);
-				tList.add(t);
+			rSet = pre.executeQuery();
+			ResultSetMetaData metaData=rSet.getMetaData();
+			while (rSet.next()) {
+				T model = class1.newInstance();
+				for (int i = 1; i <=metaData.getColumnCount(); i++) {
+					String name =metaData.getColumnName(i);
+					Field field = class1.getDeclaredField(name);
+					field.setAccessible(true);
+					field.set(model, rSet.getObject(name));
+				}
+				tList.add(model);
 			}
 			return tList;
 		} catch (SQLException e) {
