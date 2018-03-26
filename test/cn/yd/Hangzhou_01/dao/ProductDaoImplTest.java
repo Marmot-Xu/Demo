@@ -75,7 +75,8 @@ public class ProductDaoImplTest {
 	@Test
 	public void testSelect() {
 //		Product product=new Product();
-//				product=daoimpl.select(10);
+//				product=daoimpl.select(10);  
+		//
 //				System.out.println(product);
 	}
 	@Test
