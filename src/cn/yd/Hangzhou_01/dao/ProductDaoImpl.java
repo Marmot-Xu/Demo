@@ -3,14 +3,10 @@
  */
 package cn.yd.Hangzhou_01.dao;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.yd.Hangzhou_01.model.Product;
@@ -93,7 +89,7 @@ public class ProductDaoImpl extends BaseDao<Product>{
 	public List<Product> queryselect(String name) throws Exception{		
 		
 		String sql="select * from product where name like ?";
-		List<Product> list = super.querySelect(sql, new Object[]{"%"+name+"%"},Product.class);
+		List<Product> list = super.querySelect(sql, new Object[]{"%"+name+"%"},(Class<Product>) Class.forName("cn.yd.Hangzhou_01.model.Product"));
 		return list;	
 	}
 
