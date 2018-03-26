@@ -48,7 +48,8 @@ public abstract class BaseDao<T> {
 		T t = null;
 		Connection connection=null;
 		PreparedStatement pre=null;
-		ResultSet rSet=null;		
+		ResultSet rSet=null;
+		//
 		try {
 			connection=JdbcUtil.getConnection();
 			pre=connection.prepareStatement(sql);
